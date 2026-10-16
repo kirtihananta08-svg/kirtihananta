@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Ulang Tahun ke-7 - I Kadek Gavin Kayana Dhaneswara</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#FBF6EE',
+                            200: '#F5E8D3',
+                            300: '#E6C594',
+                            400: '#D4AF37',
+                            500: '#C59B27',
+                            600: '#A67C1E',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#141414',
+                            700: '#1f1f1f',
+                            600: '#2d2d2d',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF 0%, #D4AF37 50%, #F5E8D3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(to bottom right, #D4AF37, #2d2d2d, #D4AF37) 1;
+        }
+        .gold-card-bg {
+            background: linear-gradient(145deg, #181818 0%, #0d0d0d 100%);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-100 font-sans antialiased overflow-x-hidden selection:bg-gold-400 selection:text-dark-900">
+
+    <!-- Audio BGM (Using Web Audio API Tone/Synthesizer or silent audio fallback) -->
+    <div id="audio-control" class="fixed bottom-6 right-6 z-50 hidden">
+        <button id="music-toggle" class="bg-dark-800 text-gold-400 border border-gold-400/30 p-3.5 rounded-full shadow-2xl hover:bg-gold-400 hover:text-dark-900 transition-all duration-300 flex items-center justify-center group" title="Putar/Hentikan Musik">
+            <i id="music-icon" class="fa-solid fa-music text-lg animate-spin"></i>
+        </button>
+    </div>
+
+    <!-- Opening / Cover Screen -->
+    <div id="welcome-screen" class="fixed inset-0 z-50 bg-dark-900 flex flex-col items-center justify-center px-6 text-center transition-opacity duration-1000">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        
+        <div class="relative z-10 max-w-lg mx-auto space-y-6 animate-fade-in">
+            <div class="w-20 h-20 mx-auto rounded-full border border-gold-400/40 flex items-center justify-center bg-dark-800 shadow-xl shadow-gold-400/10">
+                <i class="fa-solid fa-crown text-gold-400 text-2xl"></i>
+            </div>
+            
+            <div>
+                <p class="text-xs uppercase tracking-[0.3em] text-gold-300/80 mb-2">Undangan Perayaan Spesial</p>
+                <h1 class="font-serif text-3xl sm:text-4xl font-bold gold-gradient-text tracking-wide leading-tight">
+                    I Kadek Gavin Kayana Dhaneswara
+                </h1>
+            </div>
+
+            <p class="text-gray-400 text-sm sm:text-base font-light max-w-md mx-auto">
+                Dengan penuh rasa syukur dan kebahagiaan, kami mengumumkan dan membagikan momen bahagia hari ulang tahun ke-7 buah hati kami tercinta.
+            </p>
+
+            <div class="pt-4">
+                <button id="open-invitation" class="relative group overflow-hidden rounded-full px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-400 text-dark-900 font-semibold tracking-wider text-sm shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <i class="fa-solid fa-envelope-open-text"></i> BUKA UNDANGAN
+                    </span>
+                    <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden until opened) -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000 hidden">
+        
+        <!-- Hero Section -->
+        <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:32px_32px]"></div>
+            <div class="absolute top-1/4 -left-32 w-96 h-96 bg-gold-400/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-gold-400/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl mx-auto space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-800 border border-gold-400/30 text-gold-300 text-xs tracking-widest uppercase shadow-inner">
+                    <i class="fa-solid fa-star text-[10px]"></i> HUT ke-7 Tahun <i class="fa-solid fa-star text-[10px]"></i>
+                </div>
+
+                <div class="space-y-4">
+                    <h2 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight gold-gradient-text">
+                        I Kadek Gavin<br>Kayana Dhaneswara
+                    </h2>
+                    <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto"></div>
+                </div>
+
+                <p class="text-gray-300 text-base sm:text-lg font-light max-w-xl mx-auto leading-relaxed">
+                    "Suatu kehormatan dan kebahagiaan bagi kami apabila keluarga, sahabat, serta rekan-rekan sekalian berkenan memberikan doa restu untuk kebahagiaan anak kami."
+                </p>
+
+                <!-- Countdown Timer -->
+                <div class="grid grid-cols-4 gap-3 sm:gap-4 max-w-md mx-auto pt-4">
+                    <div class="gold-card-bg border border-gold-400/20 p-3 sm:p-4 rounded-xl shadow-lg">
+                        <span id="days" class="block font-serif text-2xl sm:text-3xl font-bold text-gold-400">00</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">Hari</span>
+                    </div>
+                    <div class="gold-card-bg border border-gold-400/20 p-3 sm:p-4 rounded-xl shadow-lg">
+                        <span id="hours" class="block font-serif text-2xl sm:text-3xl font-bold text-gold-400">00</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">Jam</span>
+                    </div>
+                    <div class="gold-card-bg border border-gold-400/20 p-3 sm:p-4 rounded-xl shadow-lg">
+                        <span id="minutes" class="block font-serif text-2xl sm:text-3xl font-bold text-gold-400">00</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">Menit</span>
+                    </div>
+                    <div class="gold-card-bg border border-gold-400/20 p-3 sm:p-4 rounded-xl shadow-lg">
+                        <span id="seconds" class="block font-serif text-2xl sm:text-3xl font-bold text-gold-400">00</span>
+                        <span class="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">Detik</span>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <a href="#event-details" class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-gold-400/40 text-gold-400 animate-bounce hover:bg-gold-400 hover:text-dark-900 transition-colors">
+                        <i class="fa-solid fa-chevron-down text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Profile Section -->
+        <section class="py-20 px-6 bg-dark-800/50 relative border-t border-b border-gold-400/10">
+            <div class="max-w-4xl mx-auto text-center space-y-12">
+                <div class="space-y-3">
+                    <p class="text-xs uppercase tracking-[0.25em] text-gold-400">Putra Tercinta</p>
+                    <h3 class="font-serif text-3xl sm:text-4xl font-bold text-white">Sang Bintang Hari Ini</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div class="gold-card-bg p-6 rounded-2xl border border-gold-400/20 text-center space-y-3 shadow-xl">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400">
+                            <i class="fa-solid fa-cake-candles text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-white">Ulang Tahun ke-7</h4>
+                        <p class="text-xs text-gray-400">Tumbuh menjadi anak yang cerdas, ceria, dan membanggakan.</p>
+                    </div>
+
+                    <div class="relative mx-auto w-48 h-48 sm:w-56 sm:h-56 rounded-full p-2 bg-gradient-to-tr from-gold-400 via-dark-700 to-gold-300 shadow-2xl">
+                        <div class="w-full h-full rounded-full bg-dark-900 flex items-center justify-center overflow-hidden border-4 border-dark-900 relative">
+                            <!-- Avatar placeholder with initials / SVG graphic -->
+                            <div class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-dark-800 to-dark-900 text-gold-400">
+                                <i class="fa-solid fa-child text-5xl mb-2 opacity-90"></i>
+                                <span class="font-serif font-bold text-lg text-white">GAVIN</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gold-card-bg p-6 rounded-2xl border border-gold-400/20 text-center space-y-3 shadow-xl">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400">
+                            <i class="fa-solid fa-heart text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-white">Keluarga Bahagia</h4>
+                        <p class="text-xs text-gray-400">Putra dari pasangan tercinta keluarga besar Gutiswa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Details Section -->
+        <section id="event-details" class="py-20 px-6 max-w-4xl mx-auto space-y-12">
+            <div class="text-center space-y-3">
+                <p class="text-xs uppercase tracking-[0.25em] text-gold-400">Waktu & Tempat</p>
+                <h3 class="font-serif text-3xl sm:text-4xl font-bold text-white">Detail Acara Perayaan</h3>
+                <div class="w-16 h-0.5 bg-gold-400 mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Date & Time Card -->
+                <div class="gold-card-bg p-8 rounded-2xl border border-gold-400/20 space-y-6 shadow-xl relative overflow-hidden group hover:border-gold-400/50 transition-all duration-300">
+                    <div class="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-24 h-24 bg-gold-400/5 rounded-full blur-xl"></div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gold-400/10 border border-gold-400/30 flex items-center justify-center text-gold-400 text-2xl">
+                            <i class="fa-regular fa-calendar-days"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gold-400 uppercase tracking-widest font-medium">Hari & Tanggal</span>
+                            <h4 class="font-serif text-xl font-bold text-white mt-0.5">Minggu, 18 Oktober 2026</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 font-light leading-relaxed">
+                        Acara syukuran dan perayaan ulang tahun akan dilangsungkan mulai pukul 16.00 WITA sore hari.
+                    </p>
+                </div>
+
+                <!-- Location Card -->
+                <div class="gold-card-bg p-8 rounded-2xl border border-gold-400/20 space-y-6 shadow-xl relative overflow-hidden group hover:border-gold-400/50 transition-all duration-300">
+                    <div class="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-24 h-24 bg-gold-400/5 rounded-full blur-xl"></div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gold-400/10 border border-gold-400/30 flex items-center justify-center text-gold-400 text-2xl">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gold-400 uppercase tracking-widest font-medium">Lokasi Acara</span>
+                            <h4 class="font-serif text-xl font-bold text-white mt-0.5">Rumah Gavin Gutiswa</h4>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-300 font-light leading-relaxed">
+                        Kediaman keluarga besar Bapak Gutiswa. Suasana hangat penuh kebersamaan menanti kehadiran doa terbaik Anda.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Public Notice Banner -->
+            <div class="gold-card-bg p-6 sm:p-8 rounded-2xl border border-gold-400/30 text-center space-y-4 relative shadow-2xl">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gold-400 text-dark-900 text-[10px] sm:text-xs font-bold uppercase px-4 py-1 rounded-full tracking-widest shadow">
+                    Informasi Undangan Publik
+                </div>
+                <div class="pt-2">
+                    <i class="fa-solid fa-earth-americas text-gold-400 text-3xl mb-3"></i>
+                    <h4 class="font-serif text-lg sm:text-xl font-bold text-white">Undangan Terbuka untuk Umum</h4>
+                    <p class="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto mt-2 leading-relaxed">
+                        Website undangan ini dipublikasikan secara terbuka sebagai sarana berbagi kebahagiaan dan memohon doa restu. Tanpa formulir kehadiran atau konfirmasi (tanpa RSVP), namun kehadiran doa secara virtual maupun ucapan tulus Anda sangat berarti bagi kami.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wishes / Greetings Form (Interactive without RSVP) -->
+        <section class="py-20 px-6 bg-dark-800/40 border-t border-gold-400/10">
+            <div class="max-w-2xl mx-auto space-y-10">
+                <div class="text-center space-y-3">
+                    <p class="text-xs uppercase tracking-[0.25em] text-gold-400">Ucapan & Doa</p>
+                    <h3 class="font-serif text-3xl font-bold text-white">Kirimkan Doa & Harapan</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Berikan ucapan terbaik untuk ulang tahun I Kadek Gavin Kayana Dhaneswara.</p>
+                </div>
+
+                <form id="wishes-form" class="gold-card-bg p-6 sm:p-8 rounded-2xl border border-gold-400/20 space-y-4 shadow-xl">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gold-300 mb-2 font-medium">Nama Lengkap / Panggilan</label>
+                        <input type="text" id="sender-name" required class="w-full bg-dark-900 border border-gold-400/30 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-gold-400 transition-colors" placeholder="Contoh: Keluarga Besar Komang Agus">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gold-300 mb-2 font-medium">Ucapan & Doa Restu</label>
+                        <textarea id="sender-message" required rows="4" class="w-full bg-dark-900 border border-gold-400/30 rounded-xl px-4 py-3 text-sm text-gray-100 focus:outline-none focus:border-gold-400 transition-colors resize-none" placeholder="Tuliskan doa atau ucapan selamat ulang tahun di sini..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-400 text-dark-900 font-semibold rounded-xl text-sm shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 transition-all duration-300">
+                        Kirim Ucapan
+                    </button>
+                </form>
+
+                <!-- Wishes List Container -->
+                <div id="wishes-list" class="space-y-4 max-h-80 overflow-y-auto pr-1">
+                    <!-- Default sample wish -->
+                    <div class="gold-card-bg p-4 rounded-xl border border-gold-400/10 space-y-1">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-semibold text-gold-300 text-sm">Bli Made & Keluarga</h5>
+                            <span class="text-[10px] text-gray-500">Baru saja</span>
+                        </div>
+                        <p class="text-xs text-gray-300 font-light">Selamat ulang tahun yang ke-7 untuk Gavin! Semoga panjang umur, sehat selalu, makin cerdas dan menjadi kebanggaan keluarga besar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="py-12 px-6 text-center border-t border-gold-400/10 bg-dark-900 space-y-4">
+            <div class="w-12 h-12 mx-auto rounded-full border border-gold-400/30 flex items-center justify-center text-gold-400 bg-dark-800">
+                <i class="fa-solid fa-crown text-sm"></i>
+            </div>
+            <h5 class="font-serif text-xl font-bold gold-gradient-text">I Kadek Gavin Kayana Dhaneswara</h5>
+            <p class="text-xs text-gray-500">Terima kasih atas doa dan perhatian yang diberikan.</p>
+            <div class="pt-4 text-[10px] text-gray-600 tracking-widest uppercase">
+                &copy; 2026 • Publik Digital Invitation
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Notification Modal / Message Box (Custom Replacement for alert) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="gold-card-bg border border-gold-400/40 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl animate-scale-in">
+            <div id="modal-icon" class="w-12 h-12 mx-auto rounded-full bg-gold-400/20 text-gold-400 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h4 id="modal-title" class="font-serif text-lg font-bold text-white">Berhasil</h4>
+            <p id="modal-message" class="text-xs text-gray-300">Pesan ucapan Anda berhasil dikirimkan.</p>
+            <button id="modal-close-btn" class="w-full py-2.5 bg-gold-400 text-dark-900 font-semibold rounded-xl text-xs hover:bg-gold-300 transition-colors">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Countdown Timer Target Date: October 18, 2026 16:00:00 WITA
+        const targetDate = new Date("October 18, 2026 16:00:00 GMT+0800").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Audio synthesizer / background chime simulation using Web Audio API for graceful interactive ambient music
+        let audioCtx = null;
+        let isPlaying = false;
+        let synthInterval = null;
+
+        function startAmbientSound() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
+            // Play gentle soothing soft bell chord sequence
+            const notes = [261.63, 329.63, 392.00, 523.25]; // C chord tones
+            let index = 0;
+
+            synthInterval = setInterval(() => {
+                if (!isPlaying) return;
+                try {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(notes[index % notes.length], audioCtx.currentTime);
+                    
+                    gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 3.5);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 3.5);
+                    index++;
+                } catch(e) {}
+            }, 3000);
+        }
+
+        const musicToggleBtn = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+
+        musicToggleBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                startAmbientSound();
+                musicIcon.className = "fa-solid fa-music text-lg animate-spin text-dark-900";
+                musicToggleBtn.classList.remove('bg-dark-800', 'text-gold-400');
+                musicToggleBtn.classList.add('bg-gold-400', 'text-dark-900');
+            } else {
+                if (synthInterval) clearInterval(synthInterval);
+                musicIcon.className = "fa-solid fa-volume-xmark text-lg";
+                musicToggleBtn.classList.remove('bg-gold-400', 'text-dark-900');
+                musicToggleBtn.classList.add('bg-dark-800', 'text-gold-400');
+            }
+        });
+
+        // Open Invitation Flow
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const mainContent = document.getElementById('main-content');
+        const audioControl = document.getElementById('audio-control');
+        const openBtn = document.getElementById('open-invitation');
+
+        openBtn.addEventListener('click', () => {
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 50);
+                audioControl.classList.remove('hidden');
+                
+                // Auto start ambient audio
+                isPlaying = true;
+                startAmbientSound();
+                musicIcon.className = "fa-solid fa-music text-lg animate-spin text-dark-900";
+                musicToggleBtn.classList.remove('bg-dark-800', 'text-gold-400');
+                musicToggleBtn.classList.add('bg-gold-400', 'text-dark-900');
+            }, 1000);
+        });
+
+        // Custom Modal Function
+        function showModal(title, message, isSuccess = true) {
+            const modal = document.getElementById('custom-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalMessage = document.getElementById('modal-message');
+            const modalIcon = document.getElementById('modal-icon');
+
+            modalTitle.innerText = title;
+            modalMessage.innerText = message;
+            
+            if (isSuccess) {
+                modalIcon.innerHTML = '<i class="fa-solid fa-check"></i>';
+                modalIcon.className = "w-12 h-12 mx-auto rounded-full bg-gold-400/20 text-gold-400 flex items-center justify-center text-xl";
+            } else {
+                modalIcon.innerHTML = '<i class="fa-solid fa-exclamation"></i>';
+                modalIcon.className = "w-12 h-12 mx-auto rounded-full bg-red-400/20 text-red-400 flex items-center justify-center text-xl";
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', () => {
+            document.getElementById('custom-modal').classList.add('hidden');
+        });
+
+        // Wishes Form Handling
+        const wishesForm = document.getElementById('wishes-form');
+        const wishesList = document.getElementById('wishes-list');
+
+        wishesForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nameInput = document.getElementById('sender-name');
+            const messageInput = document.getElementById('sender-message');
+
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!name || !message) {
+                showModal("Perhatian", "Mohon lengkapi nama dan ucapan Anda.", false);
+                return;
+            }
+
+            // Create wish card element
+            const card = document.createElement('div');
+            card.className = "gold-card-bg p-4 rounded-xl border border-gold-400/10 space-y-1 animate-fade-in";
+            card.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <h5 class="font-semibold text-gold-300 text-sm">${escapeHTML(name)}</h5>
+                    <span class="text-[10px] text-gray-500">Baru saja</span>
+                </div>
+                <p class="text-xs text-gray-300 font-light">${escapeHTML(message)}</p>
+            `;
+
+            wishesList.insertBefore(card, wishesList.firstChild);
+            nameInput.value = '';
+            messageInput.value = '';
+
+            showModal("Terima Kasih", "Ucapan dan doa restu Anda telah berhasil dikirimkan.", true);
+        });
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+    </script>
+</body>
+</html>
